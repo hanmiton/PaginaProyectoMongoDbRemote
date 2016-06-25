@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
+var app_password = "1"
 
 mongoose.connect('mongodb://node:node@ds023644.mlab.com:23644/hanmilton');
 
@@ -43,16 +44,24 @@ app.get("/menu",function(req,res){
 		if(error){ console.log(error); }
 		res.render("menu/index",{ products: documento })
 	});
-	/*Product.find(function(err,document){
-		if(err){
-			console.log(error);
-		}
-		res.render("/menu/index",{products: document})
-	});*/
 });
 
+app.post("/admin",function(req,res){
+	if(req.body.password== app_password){
+		Product.find(function(error,documento){
+		if(error){ console.log(error); }
+		res.render("admin/index",{ products: documento })
+	});
+	}else{
+		res.redirect("/");
+	}
+});
+
+app.get("/admin",function(req,res){
+	res.render("admin/form")
+});
 app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
-  if(req.body.password == "1"){
+  if(req.body.password == app_password){
   	var data = {
   		title: req.body.title,
   		description: req.body.description,
