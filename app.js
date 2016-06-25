@@ -37,6 +37,20 @@ app.get("/",function(req,res){
 	res.render("index");
 });
 
+app.get("/menu",function(req,res){
+	
+	Product.find(function(error,documento){
+		if(error){ console.log(error); }
+		res.render("menu/index",{ products: documento })
+	});
+	/*Product.find(function(err,document){
+		if(err){
+			console.log(error);
+		}
+		res.render("/menu/index",{products: document})
+	});*/
+});
+
 app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
   if(req.body.password == "1"){
   	var data = {
