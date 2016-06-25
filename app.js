@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
+var method_override = require("method-override");
 var app_password = "1"
+
 
 mongoose.connect('mongodb://node:node@ds023644.mlab.com:23644/hanmilton');
 
@@ -18,7 +20,8 @@ cloudinary.config( {
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-//app.use(multer({dest: "./uploads"}));
+app.use(method_override("_method"));
+//app.use(method_override);//app.use(multer({dest: "./uploads"}));
 
 var productSchema = {
 	title: String,
@@ -46,6 +49,33 @@ app.get("/menu",function(req,res){
 	});
 });
 
+app.put("/menu/:id",function(req,res){
+	console.log(req.body);
+	if(req.body.password == app_password){
+		console.log(req.body);
+		var data = {
+			title: req.body.title,
+			description: req.body.description,
+			pricing: req.body.pricing
+		};
+			
+		Product.update({"_id": req.params.id},data,function(product){
+			res.redirect("/menu");
+		});				
+		}else{
+		res.redirect("/");
+	}
+});
+
+app.get("/menu/edit/:id",function(req,res){
+	var id_producto = req.params.id;
+
+	Product.findOne({_id: id_producto},function(error,producto){
+		res.render("menu/edit",{product: producto});
+	});
+
+});
+
 app.post("/admin",function(req,res){
 	if(req.body.password== app_password){
 		Product.find(function(error,documento){
@@ -60,6 +90,7 @@ app.post("/admin",function(req,res){
 app.get("/admin",function(req,res){
 	res.render("admin/form")
 });
+
 app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
   if(req.body.password == app_password){
   	var data = {
@@ -75,7 +106,6 @@ app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
   	cloudinary.uploader.upload(req.file.path, function(result) { 
  		product.imageUrl = result.url;
  		product.save(function(err){
- 			console.log(product);
  			res.render("index");
  		})
 });
