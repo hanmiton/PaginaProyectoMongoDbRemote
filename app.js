@@ -119,4 +119,25 @@ app.get("/menu/new", function(req,res){
 	res.render("menu/new");
 });
 
-app.listen(8080);
+
+app.get("/menu/delete/:id",function(req, res){
+	var id = req.params.id;
+
+	Product.findOne({"_id": id},function(err,producto){
+		res.render("menu/delete",{producto: producto});
+	});
+});
+
+app.delete("/menu/:id",function(req,res){
+	var id = req.params.id;
+	if(req.body.password == app_password){
+		Product.remove({"_id" : id},function(err){
+			if(err){ console.log(err);}
+			res.redirect("/menu");
+		});
+	}else{
+		res.redirect("/menu");
+	}
+
+});
+app.listen(8080);	
