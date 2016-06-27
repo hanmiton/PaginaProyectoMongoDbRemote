@@ -49,8 +49,7 @@ app.get("/menu",function(req,res){
 	});
 });
 
-app.put("/menu/:id",function(req,res){
-	console.log(req.body);
+app.put("/menu/:id", upload.single( 'image_avatar' ), function( req, res, next ){
 	if(req.body.password == app_password){
 		console.log(req.body);
 		var data = {
@@ -58,10 +57,22 @@ app.put("/menu/:id",function(req,res){
 			description: req.body.description,
 			pricing: req.body.pricing
 		};
-			
-		Product.update({"_id": req.params.id},data,function(product){
+
+		if(req.file.hasOwnProperty("path")){
+		cloudinary.uploader.upload(req.file.path, 
+			function(result){
+				data.imageUrl = result.url;
+				Product.update({"_id": req.params.id},data,function(product){
+					res.redirect("/menu");
+				});	
+			}
+			);
+		}else{
+			Product.update({"_id": req.params.id},data,function(product){
 			res.redirect("/menu");
-		});				
+			});				
+		}
+		
 		}else{
 		res.redirect("/");
 	}
@@ -101,19 +112,29 @@ app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
   	}
 
   	var product = new Product(data);
-	//console.log(req.file.path);
+	//console.log(req.file);
 	//res.render("index");
-  	cloudinary.uploader.upload(req.file.path, function(result) { 
- 		product.imageUrl = result.url;
- 		product.save(function(err){
- 			res.render("index");
- 		})
+	if(req.file.hasOwnProperty("path")){
+		cloudinary.uploader.upload(req.file.path, 
+			function(result){
+				product.imageUrl = result.url;
+				product.save(function(err){
+		 			res.redirect("/menu");
+		 		});
+			}
+			);
+		}else{
+			product.save(function(err){
+				console.log(product);
+				res.redirect("/menu");
+			});
+		}
+		
+	}else{
+		res.render("menu/new");
+	}
+
 });
-  }else{
-  	return res.render("menu/new");
-	
-  }
-  });
 
 app.get("/menu/new", function(req,res){
 	res.render("menu/new");
