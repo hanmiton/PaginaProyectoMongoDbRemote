@@ -5,7 +5,7 @@ var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 var method_override = require("method-override");
 var app_password = "1"
-
+var Schema = mongoose.Schema;
 
 mongoose.connect('mongodb://node:node@ds023644.mlab.com:23644/hanmilton');
 
@@ -23,13 +23,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(method_override("_method"));
 //app.use(method_override);//app.use(multer({dest: "./uploads"}));
 
-var productSchema = {
+var productSchemaJSON = {
 	title: String,
 	description: String,
 	imageUrl: String,
 	pricing: Number
 };
 
+var productSchema = new Schema(productSchemaJSON);
+
+productSchema.virtual("image.url").get(function(){
+	if(this.imageUrl === "" || this.imageUrl === "data.png"){
+		return "default.jpg";
+	}
+
+	return this.imageUrl;
+});
 
 var Product = mongoose.model("Product", productSchema);
 
@@ -107,7 +116,6 @@ app.post( '/menu', upload.single( 'image_avatar' ), function( req, res, next ) {
   	var data = {
   		title: req.body.title,
   		description: req.body.description,
-  		imageUrl: "data.png",
   		pricing: req.body.pricing
   	}
 
