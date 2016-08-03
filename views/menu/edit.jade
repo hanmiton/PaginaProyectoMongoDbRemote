@@ -2,23 +2,28 @@ extends ../layout.jade
 block contenido
 	div(class="col-md-5 center-block no-float top-space text-left")
 		h1 Editar Producto
-		form(method="POST" action="/menu/#{product.id}?_method=put" style="margin-top:1.5em;" enctype="multipart/form-data")
+		form(method="POST" action="/menu/#{product.id}?_method=put" style="margin-top:1.5em;")
 			
 			div(class="form-group")
-				label Nombre
-				input(type="text" name="title" value="#{product.title}" placeholder="Nombre del producto" class="form-control")
+				label Genero
+				input(type="number" name="genero" value="#{product.genero}" placeholder="Genero" class="form-control")
 			div(class="form-group")
-				label Descripción
-				textarea(name="description" placeholder="Descripción del producto" class="form-control")
-					=product.description
+				label edad
+				input(type="number" name="edad" value="#{product.edad}" placeholder="edad" class="form-control")
 			div(class="form-group")
-				label Costo
-				input(type="number" name="pricing" placeholder="Costo" class="form-control" value="#{product.pricing}")
+				label cig
+				input(type="number" name="cig" value="#{product.cig}" placeholder="cig" class="form-control")
 			div(class="form-group")
-				label Imagen del producto
-				input(type="file" name="image_avatar")
+				label expa
+				input(type="number" name="expa" value="#{product.expa}" placeholder="expa" class="form-control")
 			div(class="form-group")
-				label Contraseña
-				input(type="password" name="password" placeholder="Contraseña" class="form-control")
+				label ip
+				input(type="number" name="ip" value="#{product.ip}" placeholder="ip" class="form-control")
+			div(class="form-group")
+				label alcohol
+				input(type="number" name="alcohol" value="#{product.alcohol}" placeholder="alcohol" class="form-control")
+			div(class="form-group")
+				label enfisema
+				input(type="number" name="enfisema" value="#{product.enfisema}" placeholder="enfisema" class="form-control")
 			div(class="form-group text-right")
 				input(type="submit" class="btn btn-info" value="Guardar")

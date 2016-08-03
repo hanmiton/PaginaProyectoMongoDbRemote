@@ -6,20 +6,22 @@ block contenido
 		thead
 			tr
 				th #
-				th Nombre
-				th Descripción
-				th Precio
-				th Imágenes
-				th Acciones
+				th GENERO
+				th CIG
+				th EXPA
+				th IP
+				th ALCOHOL
+				th ENFISEMA
 		tbody
 			each product in products
 				tr
 					td= product.id
-					td= product.title
-					td= product.description
-					td= product.pricing
-					td
-						a(href="#{product.imageUrl}" class="btn") Ver Imagen
+					td= product.genero
+					td= product.cig
+					td= product.expa
+					td= product.ip
+					td= product.alcohol
+					td= product.enfisema
 					td
 						a(href="/menu/edit/#{product.id}") Editar
 						=" - "

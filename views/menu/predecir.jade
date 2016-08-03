@@ -1,28 +1,32 @@
 extends ../layout.jade
 block contenido
 	div(class="col-md-5 center-block no-float top-space text-left")
-		h1 Agregar Producto
-		form(method="post" action="/menu" style="margin-top:1.5em;")
+		h1 Predecir
+		form(method="post" action="/menu/predecir" style="margin-top:1.5em;")
 			div(class="form-group")
 				label Genero
-				input(type="number" name="genero" placeholder="Genero" class="form-control")
+				select(name="genero" class="selectpicker" class="form-control")
+					option(value="1") Hombre
+					option(value="0") Mujer	  
 			div(class="form-group")
 				label EDAD
 				input(type="number" name="edad" placeholder="Edad" class="form-control")
 			div(class="form-group")
-				label CIG
+				label CIGARRILLO
 				input(type="number" name="cig" placeholder="CIG" class="form-control")
 			div(class="form-group")
-				label EXPA
-				input(type="number" name="expa" placeholder="EXPA" class="form-control")
+				label EXPOSICIÓN AL ASBESTO
+				select(name="expa" class="selectpicker" class="form-control")
+					option(value="1") BAJO
+					option(value="2") MEDIO
+					option(value="3") ALTO
 			div(class="form-group")
-				label IP
+				label PIGMENTACIÓN
 				input(type="number" name="ip" placeholder="ip" class="form-control")
 			div(class="form-group")
 				label ALCOHOL
-				input(type="number" name="alcohol" placeholder="Alcohol" class="form-control")
-			div(class="form-group")
-				label enfisema
-				input(type="number" name="enfisema" placeholder="Enfisema" class="form-control")
+				select(name="alcohol" class="selectpicker" class="form-control")
+					option(value="1") SI
+					option(value="0") NO
 			div(class="form-group text-right")
 				input(type="submit" class="btn btn-info" value="Guardar")

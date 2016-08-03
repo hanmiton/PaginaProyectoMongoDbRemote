@@ -8,17 +8,19 @@ html(lang="en")
     link(href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css')
     link(href='css/animate.css' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js")
   body
     section(class="full-height text-center" id="main-content")
       div(class="data")
         div(class="col-md-3 center-block no-float top-space")
-          img(src="imgs/icecream.png" class="animated fadeIn")
-          h1(class="pacifico big green animated fadeIn delay-1") Food Facilito
+          img(src="imgs/medicina.png" class="animated fadeIn")
+          h1(class="pacifico big green animated fadeIn delay-1") Aplicación Mineria Datos
           div(class="animated fadeInDown delay-2")
-            h2 Ven, covive, diviértete.
+            h2 Predicción Enfisema Pulmonar.
             nav
-              a(href="/menu" class="right-space") Menú
-              a(href="menu.html" class="right-space") Contacto
-              a(href="menu.html" class="right-space") Acerca de
+              a(href="/admin" class="right-space") Admin
+              a(href="/menu/new" class="right-space") Crear
+              a(href="/menu/predecir" class="right-space") Predecir
     script(src="https://code.jquery.com/jquery-2.1.1.min.js")
     script(src="js/main.js")

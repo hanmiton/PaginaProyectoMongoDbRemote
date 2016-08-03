@@ -1,0 +1,38 @@
+extends ../layout.jade
+block contenido
+	h1 Resultados
+	table(class="table")
+		caption Resultado Predicción
+		thead
+			tr
+				th GENERO
+				th EDAD
+				th CIGARRILLO
+				th EXPANSIÓN ASBESTO
+				th PIGMENTACIÓN
+				th ALCOHOL
+				th ENFISEMA
+		tbody
+			each product in products
+				tr
+					if product.GENERO == 0
+						td Mujer
+					else
+						td Hombre	
+					td= product.EDAD
+					td= product.CIG
+					if product.EXPA == 1
+						td bajo
+					else if product.EXPA == 2
+						td medio
+					else
+						td alto	
+					td= product.IP
+					if product.ALCOHOL == 0
+						td NO
+					else
+						td SI
+					if resultado == 1
+						td Tiene Enfisema Pulmonar
+					else
+						td No Tiene Enfisema Pulmonar
