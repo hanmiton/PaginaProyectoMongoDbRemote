@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 //var multer  = require('multer')
 //var upload = multer({ dest: 'uploads/' })
 var enfisemas = require('./data/data.json');
+var prediccion = require('./data/prediccion.json')
 var method_override = require("method-override");
 var app_password = "1"
 var Schema = mongoose.Schema;
@@ -76,13 +77,18 @@ app.get("/menu/edit/:id",function(req,res){
 
 app.post("/admin",function(req,res){
 	if(req.body.password== app_password){
-		Product.find(function(error,documento){
-		if(error){ console.log(error); }
-		res.render("admin/index",{ products: documento })
-	});
+    var primeros = enfisemas;
+    console.log(primeros);
+		res.render("admin/index",{ products: primeros })
 	}else{
 		res.redirect("/");
 	}
+});
+
+
+app.get("/admin/prediccion",function(req,res){
+    var predicciones = prediccion;
+    res.render("admin/index",{ products: predicciones })
 });
 
 app.get("/admin",function(req,res){

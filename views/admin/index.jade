@@ -5,8 +5,8 @@ block contenido
 		caption Productos Actuales
 		thead
 			tr
-				th #
 				th GENERO
+				th EDAD
 				th CIG
 				th EXPA
 				th IP
@@ -15,15 +15,32 @@ block contenido
 		tbody
 			each product in products
 				tr
-					td= product.id
-					td= product.genero
-					td= product.cig
-					td= product.expa
-					td= product.ip
-					td= product.alcohol
-					td= product.enfisema
+					if product.GENERO == 0
+						td Mujer
+					else
+						td Hombre	
+					td= product.EDAD
+					td= product.CIG
+					if product.EXPA == 1
+						td bajo
+					else if product.EXPA == 2
+						td medio
+					else
+						td alto	
+					td= product.IP
+					if product.ALCOHOL == 0
+						td NO
+					else
+						td SI
+					if product.ENFISEMA == 1
+						td Tiene EMFISEMA Pulmonar
+					else
+						td No Tiene ENFISEMA Pulmonar
 					td
 						a(href="/menu/edit/#{product.id}") Editar
 						=" - "
 						a(href="/menu/delete/#{product.id}") Eliminar
 						
+
+
+					
