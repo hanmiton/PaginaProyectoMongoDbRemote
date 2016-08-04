@@ -2,6 +2,10 @@ html,body{
 	height: 100%;
 	font-family: 'Lato', sans-serif;
 }
+
+.red{
+	color: red;
+}
 .full-height{
 	height: 100%;
 }

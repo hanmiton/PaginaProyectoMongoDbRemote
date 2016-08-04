@@ -1,0 +1,48 @@
+extends ../layout.jade
+block contenido
+	h1 Panel de administración
+	caption Numero de errores  
+	caption= malos
+	table(class="table")
+		each indice in indices
+			td= indice
+	table(class="table")
+		thead
+			tr
+				th #
+				th GENERO
+				th EDAD
+				th CIG
+				th EXPA
+				th IP
+				th ALCOHOL
+				th ENFISEMA
+		tbody
+			each product in products
+				each indice in indices
+					if product.ID==indice
+						tr(class='red')
+							td= product.ID
+							if product.GENERO == 0
+								td Mujer
+							else
+								td Hombre	
+							td= product.EDAD
+							td= product.CIG
+							if product.EXPA == 1
+								td bajo
+							else if product.EXPA == 2
+								td medio
+							else
+								td alto	
+							td= product.IP
+							if product.ALCOHOL == 0
+								td NO
+							else
+								td SI
+							if product.ENFISEMA == 1
+								td Tiene EMFISEMA Pulmonar
+							else
+								td No Tiene ENFISEMA Pulmonar
+
+					

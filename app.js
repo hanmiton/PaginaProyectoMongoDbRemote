@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
 var fs = require('fs');
 var RandomForestClassifier = require('random-forest-classifier').RandomForestClassifier;
 
-mongoose.connect('mongodb://node:node@ds023644.mlab.com:23644/hanmilton');
+//mongoose.connect('mongodb://node:node@ds023644.mlab.com:23644/hanmilton');
 //console.log(enfisemas);
 var app = express();
 app.use(bodyParser.json());
@@ -76,19 +76,40 @@ app.get("/menu/edit/:id",function(req,res){
 });
 
 app.post("/admin",function(req,res){
-	if(req.body.password== app_password){
-    var primeros = enfisemas;
-    console.log(primeros);
-		res.render("admin/index",{ products: primeros })
-	}else{
-		res.redirect("/");
-	}
+	   var primeros = enfisemas;
+  	res.render("admin/index2",{ products: primeros })
 });
 
 
 app.get("/admin/prediccion",function(req,res){
     var predicciones = prediccion;
-    res.render("admin/index",{ products: predicciones })
+    var primeros= enfisemas;
+    var indices= [];
+    var n=0;
+    for (i=0; i<2000; i++){
+      if(primeros[i].ENFISEMA != predicciones[i].ENFISEMA){
+        n++;
+        indices.push(predicciones[i].ID);
+      }    
+    }
+    console.log(indices);
+    res.render("admin/index",{ products: predicciones, malos : n ,indices: indices})
+});
+
+
+app.get("/admin/comparacion",function(req,res){
+    var predicciones = prediccion;
+    var primeros= enfisemas;
+    var indices= [];
+    var n=0;
+    for (i=0; i<2000; i++){
+      if(primeros[i].ENFISEMA != predicciones[i].ENFISEMA){
+        n++;
+        indices.push(predicciones[i].ID);
+      }    
+    }
+    console.log(indices);
+    res.render("admin/comparacion",{ products: predicciones, malos : n ,indices: indices})
 });
 
 app.get("/admin",function(req,res){
